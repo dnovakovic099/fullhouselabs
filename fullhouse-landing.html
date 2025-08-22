@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FullHouse Labs — Short-Term Rental Revenue & Listing Optimization</title>
+    <meta name="description" content="Turn views into fully booked calendars. Full-stack optimization for short-term rentals: pricing science, listing optimization, and marketing managed for you.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: #334155;
+            background: #f8fafc;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .container-lg {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 32px;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            background: linear-gradient(135deg, #4f46e5 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .tagline {
+            margin-left: 16px;
+            font-size: 14px;
+            color: #64748b;
+            font-weight: 500;
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+            color: white;
+            padding: 12px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(79, 70, 229, 0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(79, 70, 229, 0.4);
+            background: linear-gradient(135deg, #4338ca 0%, #3730a3 100%);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 99, 71, 0.2) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(34, 211, 238, 0.3) 0%, transparent 50%),
+                        linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #2a2a5f 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 10%;
+            right: 10%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite reverse;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .hero-content {
+            padding: 120px 0 80px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            padding: 12px 24px;
+            margin-bottom: 32px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+        
+        .hero-title {
+            font-size: 72px;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 32px;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(16, 185, 129, 0.3);
+        }
+        
+        .gradient-text-2 {
+            background: linear-gradient(135deg, #06b6d4 0%, #6366f1 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(99, 102, 241, 0.3);
+        }
+        
+        .hero-subtitle {
+            font-size: 24px;
+            color: #cbd5e1;
+            font-weight: 300;
+            line-height: 1.6;
+            margin-bottom: 48px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 56px;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 18px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(16, 185, 129, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 60px rgba(16, 185, 129, 0.4);
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 18px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        /* Dashboard */
+        .dashboard {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 32px;
+            transition: all 0.5s ease;
+        }
+        
+        .dashboard:hover {
+            transform: scale(1.02);
+        }
+        
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+        
+        .dashboard-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .traffic-lights {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .traffic-light {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .red { background: #ef4444; }
+        .yellow { background: #eab308; }
+        .green { background: #10b981; }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .metric-label {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .metric-value {
+            font-size: 32px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 4px;
+        }
+        
+        .metric-change {
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+        
+        .chart {
+            display: flex;
+            align-items: end;
+            gap: 4px;
+            height: 80px;
+            margin-bottom: 24px;
+        }
+        
+        .chart-bar {
+            background: linear-gradient(180deg, #6366f1 0%, #4f46e5 70%, #4338ca 100%);
+            width: 24px;
+            border-radius: 4px 4px 0 0;
+            animation: grow 2s ease-out;
+        }
+        
+        @keyframes grow {
+            from { height: 0; }
+        }
+        
+        .chart-info {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 14px;
+        }
+        
+        /* Trust Bar */
+        .trust-bar {
+            background: white;
+            padding: 32px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .trust-content {
+            text-align: center;
+        }
+        
+        .trust-label {
+            color: #64748b;
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+        
+        .trust-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 48px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+        
+        .trust-logo {
+            font-weight: 700;
+            font-size: 18px;
+            color: #94a3b8;
+            transition: color 0.3s ease;
+        }
+        
+        .trust-logo:hover {
+            color: #64748b;
+        }
+        
+        .trust-subtitle {
+            color: #64748b;
+            font-size: 14px;
+        }
+        
+        /* Value Props */
+        .value-props {
+            padding: 120px 0;
+            background: radial-gradient(circle at 25% 25%, rgba(99, 102, 241, 0.05) 0%, transparent 25%),
+                        radial-gradient(circle at 75% 75%, rgba(6, 182, 212, 0.05) 0%, transparent 25%),
+                        linear-gradient(135deg, #fafbff 0%, #f1f5f9 100%);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            margin-top: 80px;
+        }
+        
+        .service-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 32px;
+            padding: 48px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.02);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #4f46e5, #06b6d4, #10b981);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-16px);
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.15);
+        }
+        
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .service-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 32px;
+        }
+        
+        .service-icon-large {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            transition: transform 0.3s ease;
+        }
+        
+        .service-card:hover .service-icon-large {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .service-title-large {
+            font-size: 32px;
+            font-weight: 900;
+            color: #0f172a;
+            line-height: 1.2;
+        }
+        
+        .service-problem {
+            background: #fef2f2;
+            border-left: 4px solid #ef4444;
+            padding: 20px;
+            margin-bottom: 32px;
+            border-radius: 0 12px 12px 0;
+        }
+        
+        .service-problem-title {
+            font-weight: 700;
+            color: #dc2626;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        
+        .service-problem-text {
+            color: #7f1d1d;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        
+        .service-solution {
+            margin-bottom: 32px;
+        }
+        
+        .service-solution-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #059669;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .service-solution-text {
+            color: #374151;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .service-features {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+        
+        .service-feature {
+            display: flex;
+            align-items: start;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 15px;
+            color: #4b5563;
+        }
+        
+        .service-feature-check {
+            color: #059669;
+            font-weight: 700;
+            font-size: 16px;
+            margin-top: 2px;
+        }
+        
+        .service-results {
+            background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+        
+        .service-results-title {
+            font-weight: 700;
+            color: #047857;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+        
+        .service-results-text {
+            color: #065f46;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        
+        .service-cta {
+            text-align: center;
+        }
+        
+        .free-software-banner {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: white;
+            padding: 60px 0;
+            margin: 80px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .free-software-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 30%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 70%, rgba(16, 185, 129, 0.1) 0%, transparent 50%);
+        }
+        
+        .free-software-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+        }
+        
+        .free-software-title {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #10b981 0%, #06b6d4 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .free-software-subtitle {
+            font-size: 24px;
+            color: #cbd5e1;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+        
+        .software-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+            margin: 40px 0;
+        }
+        
+        .software-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .software-item:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .software-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 8px;
+        }
+        
+        .software-value {
+            font-size: 16px;
+            color: #10b981;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+        
+        .software-description {
+            font-size: 14px;
+            color: #cbd5e1;
+            line-height: 1.5;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .section-title {
+            font-size: 64px;
+            font-weight: 900;
+            color: #0f172a;
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+        
+        .section-subtitle {
+            font-size: 24px;
+            color: #64748b;
+            font-weight: 300;
+        }
+        
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+        
+        .value-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.02);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .value-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4f46e5, #06b6d4, #10b981);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.1);
+        }
+        
+        .value-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .value-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 32px;
+            font-size: 32px;
+            transition: transform 0.3s ease;
+        }
+        
+        .value-card:hover .value-icon {
+            transform: scale(1.1);
+        }
+        
+        .icon-1 { background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%); }
+        .icon-2 { background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+        .icon-3 { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+        .icon-4 { background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); }
+        
+        .value-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 16px;
+        }
+        
+        .value-description {
+            color: #64748b;
+            margin-bottom: 24px;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        
+        .value-metric {
+            background: #f0fdf4;
+            color: #059669;
+            font-weight: 700;
+            font-size: 14px;
+            padding: 8px 16px;
+            border-radius: 50px;
+            display: inline-block;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .hero-title {
+                font-size: 48px;
+            }
+            
+            .section-title {
+                font-size: 40px;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 16px;
+            }
+            
+            .stat-number {
+                font-size: 32px;
+            }
+            
+            .nav-content {
+                padding: 0 16px;
+            }
+            
+            .logo {
+                font-size: 24px;
+            }
+            
+            .tagline {
+                display: none;
+            }
+        }
+        
+        /* Modal */
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 24px;
+            max-width: 500px;
+            width: 100%;
+            padding: 40px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+        
+        .modal-title {
+            font-size: 28px;
+            font-weight: 900;
+            color: #0f172a;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 32px;
+            color: #94a3b8;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .close-btn:hover {
+            color: #64748b;
+        }
+        
+        .form-group {
+            margin-bottom: 24px;
+        }
+        
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 8px;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: start;
+            gap: 12px;
+        }
+        
+        .checkbox {
+            width: 18px;
+            height: 18px;
+            margin-top: 2px;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+            color: white;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 16px;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(135deg, #4338ca 0%, #3730a3 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.3);
+        }
+        
+        .privacy-note {
+            font-size: 12px;
+            color: #64748b;
+            text-align: center;
+            margin-top: 16px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="nav-content">
+            <div style="display: flex; align-items: center;">
+                <div class="logo">FullHouse Labs</div>
+                <div class="tagline">Revenue science for short-term rentals</div>
+            </div>
+            <button class="cta-button" onclick="openModal()">Get Free Audit</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="container-lg">
+                <div class="hero-grid">
+                    <div>
+                        <div class="badge">
+                            <div class="status-dot"></div>
+                            <span>Trusted by 500+ property owners</span>
+                        </div>
+                        
+                        <h1 class="hero-title">
+                            Fill Your <span class="gradient-text">Calendar</span> and Raise Your <span class="gradient-text-2">Rates</span>
+                        </h1>
+                        
+                        <p class="hero-subtitle">
+                            Full-stack optimization for short-term rentals: listing fixes, pricing science, review strategy, and marketing—<strong style="color: white;">managed for you.</strong>
+                        </p>
+                        
+                        <div class="stats-grid">
+                            <div class="stat">
+                                <div class="stat-number gradient-text">+15-40%</div>
+                                <div class="stat-label">Revenue Lift</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number gradient-text-2">Daily</div>
+                                <div class="stat-label">Price Audits</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number gradient-text">Complete</div>
+                                <div class="stat-label">Optimization</div>
+                            </div>
+                        </div>
+
+                        <div class="hero-buttons">
+                            <button class="btn-primary" onclick="openModal()">
+                                <span>Get My Free Revenue Audit</span>
+                                <span>→</span>
+                            </button>
+                            <button class="btn-secondary" onclick="scrollToSection('how-it-works')">
+                                <span>See How It Works</span>
+                                <span>↓</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard -->
+                    <div class="dashboard">
+                        <div class="dashboard-header">
+                            <div class="dashboard-title">Revenue Dashboard</div>
+                            <div class="traffic-lights">
+                                <div class="traffic-light red"></div>
+                                <div class="traffic-light yellow"></div>
+                                <div class="traffic-light green"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <div class="metric-label" style="color: #10b981;">ADR</div>
+                                <div class="metric-value">$247</div>
+                                <div class="metric-change" style="color: #10b981;">
+                                    <span>↗</span>
+                                    <span>+23%</span>
+                                </div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label" style="color: #06b6d4;">Occupancy</div>
+                                <div class="metric-value">87%</div>
+                                <div class="metric-change" style="color: #06b6d4;">
+                                    <span>↗</span>
+                                    <span>+5%</span>
+                                </div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-label" style="color: #6366f1;">Revenue</div>
+                                <div class="metric-value">$8.2k</div>
+                                <div class="metric-change" style="color: #10b981;">
+                                    <span>↗</span>
+                                    <span>+31%</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="chart">
+                            <div class="chart-bar" style="height: 32px;"></div>
+                            <div class="chart-bar" style="height: 48px;"></div>
+                            <div class="chart-bar" style="height: 64px;"></div>
+                            <div class="chart-bar" style="height: 80px;"></div>
+                            <div class="chart-bar" style="height: 56px;"></div>
+                            <div class="chart-bar" style="height: 72px;"></div>
+                            <div class="chart-bar" style="height: 64px;"></div>
+                        </div>
+                        
+                        <div class="chart-info">Live performance tracking</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Bar -->
+    <section class="trust-bar">
+        <div class="container">
+            <div class="trust-content">
+                <p class="trust-label">Seamlessly integrates with</p>
+                <div class="trust-logos">
+                    <div class="trust-logo">PriceLabs</div>
+                    <div class="trust-logo">Wheelhouse</div>
+                    <div class="trust-logo">Airbnb</div>
+                    <div class="trust-logo">Vrbo</div>
+                    <div class="trust-logo">Booking.com</div>
+                </div>
+                <p class="trust-subtitle">Built for owners and PMs from 1 to 500+ units</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="value-props">
+        <div class="container-lg">
+            <div class="section-header">
+                <h2 class="section-title">Stop Leaving Money on the Table</h2>
+                <p class="section-subtitle">We fix the 4 biggest revenue killers destroying your profits</p>
+            </div>
+
+            <div class="services-grid">
+                <!-- Pricing Service -->
+                <div class="service-card">
+                    <div class="service-header">
+                        <div class="service-icon-large icon-1">📈</div>
+                        <h3 class="service-title-large">Revenue & Pricing Optimization</h3>
+                    </div>
+                    
+                    <div class="service-problem">
+                        <div class="service-problem-title">❌ The Problem:</div>
+                        <div class="service-problem-text">Your pricing is guesswork. You're either leaving $1000s on the table with rates too low, or killing occupancy with rates too high. Most hosts lose 20-40% potential revenue.</div>
+                    </div>
+                    
+                    <div class="service-solution">
+                        <div class="service-solution-title">
+                            ✅ Our Solution: Proprietary Revenue Intelligence System
+                        </div>
+                        <div class="service-solution-text">We combine PriceLabs Pro with our proprietary algorithm and premium data sources (AirDNA Pro) to create a revenue optimization system that most property managers can't afford. Daily market analysis drives pricing decisions.</div>
+                        
+                        <ul class="service-features">
+                            <li class="service-feature">
+                                <span class="service-feature-check">✓</span>
+                                <span><strong>PriceLabs Pro Account Setup & Management ($240/year value)</strong> - Complete account configuration and ongoing management</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="service-feature-check">✓</span>
+                                <span><strong>Daily Market Data Analysis</strong> - We track 40+ market signals, including demand surges, competitor occupancy, local events, and booking pace</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="service-feature-check">✓</span>
+                                <span><strong>AirDNA Pro Integration ($6k/year value)</strong> - We pull data from premium tools to understand forward-looking demand in your exact submarket</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="service-feature-check">✓</span>
+                                <span><strong>Custom Proprietary Rules</strong> - Our algorithm layers on top of PriceLabs, applying rules for last-minute discounts, length-of-stay pricing, and orphan-night gap fills</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="service-feature-check">✓</span>
+                                <span><strong>Event & Seasonal Calendars</strong> - Proactive adjustments for concerts, conventions, sports seasons, and holidays so you never leave peak revenue on the table</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="service-feature-check">✓</span>
+                                <span><strong>Performance Reporting</strong> - Monthly revenue breakdowns show occupancy vs. ADR performance compared to market averages</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="service-feature-check">✓</span>
+                                <span><strong>Continuous Testing & Adjustments</strong> - We A/B test minimum stay lengths, weekend vs. weekday pricing, and discount strategies unique to your property</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="service-results">
+                        <div class="service-results-title">💰 Typical Results:</div>
+                        <div class="service-results-text">15-25% ADR increase while maintaining 80%+ occupancy. That's $1,200-3,500 extra per month for most properties.</div>
+                    </div>
+                </div>
+
+                <!-- Listing Service -->
+                <div class="service-card">
+                    <div class="service-header">
+                        <div class="service-icon-large icon-2">🏆</div>
+                        <h3 class="service-title-large">Listing Conversion Machine</h3>
+                    </div>
+                    
+                    <div class="service-problem">
+                        <div class="service-problem-title">❌ The Problem:</div>
+                        <div class="service-problem-text">Your listing is invisible. Poor photos order, weak titles, and missing keywords mean you're losing 60% of potential bookings to competitors with worse properties but better listings.</div>
+                    </div>
+                    
+                    <div class="service-solution">
+                        <div class="service-solution-title">
+                            ✅ Our Solution: Conversion-Optimized Listing System
+                        </div>
+                        <div class="service-solution-text">Complete listing transformation using conversion data from 10,000+ bookings. We rewrite everything from scratch with market-specific keywords and proven conversion psychology that turns browsers into bookers.</div>
+                        
+                        <ul class="service-features">
+                            <li class="service-feature">
+                                <span class="service-feature-check">✓</span>
+                                <span><strong>Photo Reordering & Optimization</strong> - We restructure your gallery in a proven conversion sequence that highlights the property's strongest selling points first</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="service-feature-check">✓</span>
+                                <span><strong>Custom Photographer Guide</strong> - We provide your photographer with a tailored shot list and composition guide so every new photo set is optimized for bookings, not just looks</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="service-feature-check">✓</span>
+                                <span><strong>Keyword-Optimized Titles & Descriptions</strong> - We rewrite your title and description using high-intent, market-specific keywords pulled from search data to boost visibility in platform algorithms</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="service-feature-check">✓</span>
+                                <span><strong>Review Audit & Response Strategy</strong> - We audit your guest reviews to identify and resolve "conversion killers" (like repeated complaints), then help you craft responses and mediation tactics</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="service-feature-check">✓</span>
+                                <span><strong>Amenity Highlighting & Positioning</strong> - We make sure unique amenities are front and center (hot tubs, views, parking, family-friendly features), and position them strategically against local competitors</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="service-feature-check">✓</span>
+                                <span><strong>Competitor Benchmarking</strong> - We analyze similar listings in your area to spot gaps in their presentation and ensure your listing stands out with stronger messaging</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="service-feature-check">✓</span>
+                                <span><strong>SEO & Platform Algorithm Alignment</strong> - We optimize the entire listing for Airbnb, Vrbo, and Google search visibility — titles, captions, and metadata are crafted for maximum algorithm favorability</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="service-feature-check">✓</span>
+                                <span><strong>Monthly Conversion Reports</strong> - You get a simple breakdown of how your listing is performing vs. competitors, so you see the uplift from our optimizations</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="service-results">
+                        <div class="service-results-title">📊 Typical Results:</div>
+                        <div class="service-results-text">35-50% increase in booking conversion rate. Most hosts see results within 2 weeks of implementation.</div>
+                    </div>
+                </div>
+
+                <!-- Review Service -->
+                <div class="service-card">
+                    <div class="service-header">
+                        <div class="service-icon-large icon-3">⭐</div>
+                        <h3 class="service-title-large">Review Mediation & Reputation Management</h3>
+                    </div>
+                    
+                    <div class="service-problem">
+                        <div class="service-problem-title">❌ The Problem:</div>
+                        <div class="service-problem-text">Bad reviews tank revenue. Even one poor review can bury your listing in search results and scare off thousands in potential bookings. Most hosts don't know how to dispute unfair reviews, resolve issues before they hit the review page, or craft responses that protect their reputation.</div>
+                    </div>
+                    
+                    <div class="service-solution">
+                        <div class="service-solution-title">
+                            ✅ Our Solution: Review Mediation Engine
+                        </div>
+                        <div class="service-solution-text">We proactively manage your reviews so you maintain a 4.8+ rating and protect your search ranking from reputation damage.</div>
+                        
+                        <ul class="service-features">
+                            <li class="service-feature">
+                                <span class="service-feature-check">✓</span>
+                                <span><strong>Review Audits</strong> - Analyze past reviews to identify recurring issues that may hurt conversion</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="service-feature-check">✓</span>
+                                <span><strong>Dispute Support</strong> - Draft and submit strong, data-backed disputes to platforms when reviews violate Airbnb/Vrbo policies</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="service-feature-check">✓</span>
+                                <span><strong>Response Templates</strong> - Write professional responses that neutralize negative reviews and showcase your professionalism to future guests</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="service-feature-check">✓</span>
+                                <span><strong>Pre-Checkout Mediation</strong> - Implement strategies to resolve guest frustrations before checkout, reducing the chance of a negative review ever being posted</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="service-feature-check">✓</span>
+                                <span><strong>Monthly Reputation Reports</strong> - Track average rating, response effectiveness, and review volume with transparent reporting</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="service-results">
+                        <div class="service-results-title">💡 Typical Results:</div>
+                        <div class="service-results-text">Average rating increases by 0.3–0.5 stars within 90 days, boosting search ranking and conversion rates across all platforms.</div>
+                    </div>
+                </div>
+
+                <!-- Marketing Service -->
+                <div class="service-card">
+                    <div class="service-header">
+                        <div class="service-icon-large icon-4">🌐</div>
+                        <h3 class="service-title-large">Direct Booking Power System</h3>
+                    </div>
+                    
+                    <div class="service-problem">
+                        <div class="service-problem-title">❌ The Problem:</div>
+                        <div class="service-problem-text">Relying solely on Airbnb or Vrbo means paying high fees, having zero control over guest data, and being exposed to sudden policy changes. Most hosts never build a direct booking channel — leaving 10–20% of profits on the table and no long-term guest loyalty.</div>
+                    </div>
+                    
+                    <div class="service-solution">
+                        <div class="service-solution-title">
+                            ✅ Our Solution: Direct Booking System
+                        </div>
+                        <div class="service-solution-text">We set up and run your direct booking infrastructure so you own the guest relationship and keep more profit.</div>
+                        
+                        <ul class="service-features">
+                            <li class="service-feature">
+                                <span class="service-feature-check">✓</span>
+                                <span><strong>Social Media Management</strong> - 1 professionally crafted post per week (IG + FB) featuring your property with compelling captions, strategic hashtags, and local engagement tactics to build your brand</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="service-feature-check">✓</span>
+                                <span><strong>Zero-Commission Bookings</strong> - Keep the 15–20% that platforms normally take as fees</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="service-feature-check">✓</span>
+                                <span><strong>Retargeting & Email Capture</strong> - Collect guest emails and run remarketing campaigns for repeat stays</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="service-feature-check">✓</span>
+                                <span><strong>Payment & Security Integration</strong> - Stripe or other gateways integrated with guest screening and ID verification</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="service-feature-check">✓</span>
+                                <span><strong>Google Visibility</strong> - Optimize your site so it shows up in local vacation rental searches</span>
+                            </li>
+                            <li class="service-feature">
+                                <span class="service-feature-check">✓</span>
+                                <span><strong>Automated Messaging & Contracts</strong> - Guests receive professional confirmations, contracts, and upsell offers automatically</span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="service-results">
+                        <div class="service-results-title">💡 Typical Results:</div>
+                        <div class="service-results-text">Owners see 10–20% higher net revenue, stronger repeat bookings, and long-term guest loyalty that platforms can't offer.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Free Software Banner -->
+            <div class="free-software-banner">
+                <div class="container">
+                    <div class="free-software-content">
+                        <h3 class="free-software-title">$2,000+ in Software. Free.</h3>
+                        <p class="free-software-subtitle">We provide and manage premium tools so you don't have to</p>
+                        
+                        <div class="software-grid">
+                            <div class="software-item">
+                                <div class="software-name">AirDNA Pro</div>
+                                <div class="software-value">$6,000/year value</div>
+                                <div class="software-description">Premium market intelligence and forward-looking demand data</div>
+                            </div>
+                            
+                            <div class="software-item">
+                                <div class="software-name">PriceLabs Pro</div>
+                                <div class="software-value">$240/year value</div>
+                                <div class="software-description">Dynamic pricing algorithms and automated rate management</div>
+                            </div>
+                            
+                            <div class="software-item">
+                                <div class="software-name">SEO Tools</div>
+                                <div class="software-value">$600/year value</div>
+                                <div class="software-description">Keyword research and ranking optimization</div>
+                            </div>
+                            
+                            <div class="software-item">
+                                <div class="software-name">Social Media Tools</div>
+                                <div class="software-value">$480/year value</div>
+                                <div class="software-description">Content creation and scheduling platforms</div>
+                            </div>
+                            
+                            <div class="software-item">
+                                <div class="software-name">Analytics Suite</div>
+                                <div class="software-value">$720/year value</div>
+                                <div class="software-description">Revenue tracking and performance insights</div>
+                            </div>
+                        </div>
+                        
+                        <p style="color: #cbd5e1; font-size: 18px; margin-top: 40px;">
+                            <strong>Total Value: $8,040/year</strong> • Included free with your optimization package
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Get Your Free Revenue Audit</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+
+            <form onsubmit="submitForm(event)">
+                <div class="form-group">
+                    <label class="form-label">Name *</label>
+                    <input type="text" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email *</label>
+                    <input type="email" class="form-input" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Property Link(s) *</label>
+                    <input type="url" class="form-input" placeholder="Airbnb, Vrbo, or other listing URL" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">City *</label>
+                        <input type="text" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Bedrooms *</label>
+                        <select class="form-input" required>
+                            <option value="">Select</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4+">4+</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Current Average Nightly Rate (Optional)</label>
+                    <input type="number" class="form-input" placeholder="e.g., 150">
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" class="checkbox" required>
+                    <label class="form-label" style="margin-bottom: 0;">I want the free revenue audit and understand this will include a detailed analysis of my property's performance and optimization opportunities.</label>
+                </div>
+
+                <button type="submit" class="submit-btn">Get My Free Audit</button>
+
+                <p class="privacy-note">We never share your data. We only access what you authorize.</p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function submitForm(event) {
+            event.preventDefault();
+            alert('Thank you! We\'ll send your revenue audit within 48 hours. Check your email for next steps.');
+            closeModal();
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('modal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                closeModal();
+            }
+        });
+
+        // Escape key to close modal
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        // Navigation scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                nav.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+    </script>
+</body>
+</html>
