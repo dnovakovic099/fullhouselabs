@@ -735,16 +735,21 @@
         /* Responsive */
         @media (max-width: 768px) {
             .hero-title {
-                font-size: 56px;
+                font-size: 48px;
+                line-height: 1.1;
+                margin-bottom: 24px;
             }
             
             .section-title {
-                font-size: 40px;
+                font-size: 36px;
+                line-height: 1.2;
             }
             
             .hero-buttons {
                 flex-direction: column;
                 align-items: center;
+                gap: 16px;
+                margin-bottom: 32px;
             }
 
             .service-list {
@@ -760,26 +765,35 @@
                 grid-template-columns: 1fr;
                 gap: 20px;
                 padding: 24px;
+                margin: 0 16px 32px;
             }
 
             .tool-logos {
                 gap: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
             }
 
             .credibility-bar {
                 padding: 20px;
+                margin: 0 16px;
             }
             
             .nav-content {
                 padding: 0 16px;
+                height: 70px;
             }
             
             .logo {
-                font-size: 24px;
+                font-size: 22px;
             }
             
             .tagline {
                 display: none;
+            }
+
+            .cta-button {
+                display: none; /* Hide CTA button in header on mobile */
             }
 
             .steps-grid {
@@ -805,6 +819,121 @@
                 flex-direction: column;
                 gap: 20px;
                 text-align: center;
+            }
+
+            /* Fix revenue dashboard on mobile */
+            .hero-dashboard {
+                margin: 0 16px;
+            }
+
+            .dashboard {
+                padding: 20px;
+                margin-bottom: 40px;
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                margin-bottom: 24px;
+            }
+
+            .metric-card {
+                padding: 16px;
+                text-align: center;
+            }
+
+            .chart {
+                margin-bottom: 16px;
+            }
+
+            .chart-bar {
+                margin: 0 2px;
+            }
+
+            /* Mobile-specific container adjustments */
+            .container, .container-lg {
+                padding: 0 16px;
+            }
+
+            /* Hero section mobile adjustments */
+            .hero {
+                padding: 120px 0 80px;
+            }
+
+            .badge {
+                padding: 6px 16px;
+                font-size: 12px;
+                margin-bottom: 32px;
+            }
+
+            .hero-proof .proof-stat {
+                padding: 16px;
+            }
+
+            .stat-number {
+                font-size: 36px;
+            }
+
+            .proof-testimonial {
+                padding: 16px;
+            }
+
+            .testimonial-text {
+                font-size: 16px;
+            }
+
+            /* Fix modal and form on mobile */
+            .modal {
+                padding: 8px;
+                align-items: flex-start;
+                padding-top: 20px;
+            }
+
+            .modal-content {
+                max-width: 100%;
+                padding: 24px 20px;
+                margin: 0 8px;
+                max-height: 90vh;
+                overflow-y: auto;
+            }
+
+            .form-group {
+                margin-bottom: 20px;
+            }
+
+            .form-input {
+                padding: 14px 16px;
+                font-size: 16px; /* Prevents zoom on iOS */
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .checkbox-group {
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .checkbox {
+                margin-top: 4px;
+            }
+
+            .submit-btn {
+                padding: 16px;
+                font-size: 16px;
+            }
+
+            .privacy-note {
+                font-size: 11px;
+                line-height: 1.4;
             }
         }
 
@@ -1363,5 +1492,10 @@
             }
         });
     </script>
+
+    <!-- Mobile Floating CTA Button -->
+    <button class="mobile-cta-float" onclick="openModal()">
+        Get My Free Revenue Audit
+    </button>
 </body>
 </html>
